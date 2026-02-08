@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snakes and Ladders (Manual Cells with Errors)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(10, 50px);
+      grid-template-rows: repeat(10, 50px);
+      margin: 20px auto;
+      border: 2px solid #333;
+      width: 500px;
+      height: 500px;
+    }
+    .cell {
+      border: 1px solid #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      position: relative;
+    }
+    .player {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .p1 { background: red; bottom: 2px; left: 2px; }
+    .p2 { background: blue; top: 2px; right: 2px; }
+    #controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Snakes and Ladders</h1>
+  <div id="board">
+    <div class="cell">51</div>
+    <div class="cell">50</div><div class="cell">49</div><div class="cell">48</div><div class="cell">47</div><div class="cell">46</div><div class="cell">45</div><div class="cell">44</div><div class="cell">43</div><div class="cell">42</div><div class="cell">41</div>
+    <div class="cell">31</div><div class="cell">32</div><div class="cell">33</div><div class="cell">34</div><div class="cell">35</div><div class="cell">36</div><div class="cell">37</div><div class="cell">38</div><div class="cell">39</div><div class="cell">40</div>
+    <div class="cell">30</div><div class="cell">29</div><div class="cell">28</div><div class="cell">27</div><div class="cell">26</div><div class="cell">25</div><div class="cell">24</div><div class="cell">23</div><div class="cell">22</div><div class="cell">21</div>
+    <div class="cell">11</div><div class="cell">12</div><div class="cell">13</div><div class="cell">14</div><div class="cell">15</div><div class="cell">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell">19</div><div class="cell">20</div>
+    <div class="cell">10</div><div class="cell">9</div><div class="cell">8</div><div class="cell">7</div><div class="cell" id="6">6</div><div class="cell" id="5">5</div><div class="cell" id="4">4</div><div class="cell" id="3">3</div><div class="cell" id="2">2</div><div class="cell" id="1">1</div>
+  </div>
+
+  <div id="controls">
+    <p id="status">Player 1's turn</p>
+    <button onclick="rollDice()">Roll Dice</button>
+  </div>
+
+  <script>
+    let turn='A';
+    let a=1,b=1;
+    // let choice=[];
+    function rollDice(){
+      let curr=Math.floor(Math.random()*6);
+      if(turn==='A'){
+        a+=curr;
+        rollDice1();
+        if(curr===6){
+          rollDice();
+        }
+        turn='B';
+      }else if(turn==='B'){
+        b+=curr;
+
+        turn='A';
+      }
+    }
+    function start(){
+      let a1=document.getElementById("1");
+      let newele1=document.createElement("div");
+      newele1.className="player p1";
+      a1.append(newele1);
+    }
+    function rollDice1(){
+      if(turn==='A'){
+      let a1=document.getElementById(String(a));
+      let newele=document.createElement("div");
+      newele.className="player p1";
+      a1.append(newele);
+      }
+    }
+    function movement(){
+
+
+    }
+    // function turns(){
+    //     if(turn==='A'){
+
+    //       turn='B';
+    //     }else{
+
+    //       turn='A'
+    //     }
+    // }
+
+    // const cells = document.querySelectorAll(".cell");
+    // const snakes = { 99: 7, 92: 35, 73: 12, 50: 5, 15: 2 };
+    // const ladders = { 3: 22, 8: 26, 20: 41, 36: 55, 63: 82, 95: 120 }; 
+
+    // let positions = [1, 1];
+    // let currentPlayer = 0;
+
+    // function rollDice() {
+    //   const roll = Math.floor(Math.random() * 6) + 1;
+    //   status.textContent = `Player ${currentPlayer + 1} rolled a ${roll}`;
+    //   movePlayer(currentPlayer, roll);
+    // }
+
+
+    // function movePlayer(player, roll) {
+    //   let pos = positions[player] + roll;
+    //   if (pos > 100) pos = positions[player]; 
+    //   if (snakes[pos]) {
+    //     status.textContent += ` — Snake down to ${snakes[pos]}`;
+    //     pos = snakes[pos];
+    //   } else if (ladders[pos]) {
+    //     status.textContent += ` — Ladder up to ${ladders[pos]}`;
+    //     pos = ladders[pos];
+    //   }
+    //   positions[player] = pos;
+    //   renderPlayers();
+
+    //   if (pos === 100) {
+    //     status.textContent = `Player ${player + 1} wins!`;
+    //     return;
+    //   }
+    //   currentPlayer = 1 - currentPlayer;
+    //   status.textContent += ` — Player ${currentPlayer + 1}'s turn`;
+    // }
+
+    // function renderPlayers() {
+    //   document.querySelectorAll(".player").forEach(p => p.remove());
+    //   positions.forEach((pos, i) => {
+    //     const token = document.createElement("div");
+    //     token.className = `player p${i+1}`;
+    //     cells[100 - pos].appendChild(token); 
+    //   });
+    // }
+
+    // renderPlayers();
+  </script>
+</body>
+</html>
