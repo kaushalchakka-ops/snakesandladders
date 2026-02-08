@@ -47,16 +47,16 @@
 <body>
   <h1>Snakes and Ladders</h1>
   <div id="board">
-    <div class="cell">51</div>
     <div class="cell">50</div><div class="cell">49</div><div class="cell">48</div><div class="cell">47</div><div class="cell">46</div><div class="cell">45</div><div class="cell">44</div><div class="cell">43</div><div class="cell">42</div><div class="cell">41</div>
-    <div class="cell">31</div><div class="cell">32</div><div class="cell">33</div><div class="cell">34</div><div class="cell">35</div><div class="cell">36</div><div class="cell">37</div><div class="cell">38</div><div class="cell">39</div><div class="cell">40</div>
-    <div class="cell">30</div><div class="cell">29</div><div class="cell">28</div><div class="cell">27</div><div class="cell">26</div><div class="cell">25</div><div class="cell">24</div><div class="cell">23</div><div class="cell">22</div><div class="cell">21</div>
-    <div class="cell">11</div><div class="cell">12</div><div class="cell">13</div><div class="cell">14</div><div class="cell">15</div><div class="cell">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell">19</div><div class="cell">20</div>
-    <div class="cell">10</div><div class="cell">9</div><div class="cell">8</div><div class="cell">7</div><div class="cell" id="6">6</div><div class="cell" id="5">5</div><div class="cell" id="4">4</div><div class="cell" id="3">3</div><div class="cell" id="2">2</div><div class="cell" id="1">1</div>
+    <div class="cell" id="31">31</div><div class="cell" id="32">32</div><div class="cell" id="33">33</div><div class="cell" id="34">34</div><div class="cell" id="35">35</div><div class="cell" id="36">36</div><div class="cell" id="37">37</div><div class="cell" id="38">38</div><div class="cell">39</div><div class="cell">40</div>
+    <div class="cell" id="30">30</div><div class="cell" id="29">29</div><div class="cell" id="28">28</div><div class="cell" id="27">27</div><div class="cell" id="26">26</div><div class="cell" id="25">25</div><div class="cell" id="24">24</div><div class="cell" id="23">23</div><div class="cell" id="22">22</div><div class="cell" id="21">21</div>
+    <div class="cell" id="11">11</div><div class="cell" id="12">12</div><div class="cell" id="13">13</div><div class="cell" id="14">14</div><div class="cell" id="15">15</div><div class="cell" id="16">16</div><div class="cell" id="17">17</div><div class="cell" id="18">18</div><div class="cell" id="19">19</div><div class="cell" id="20">20</div>
+    <div class="cell" id="10">10</div><div class="cell" id="9">9</div><div class="cell" id="8">8</div><div class="cell" id="7">7</div><div class="cell" id="6">6</div><div class="cell" id="5">5</div><div class="cell" id="4">4</div><div class="cell" id="3">3</div><div class="cell" id="2">2</div><div class="cell" id="1">1</div>
   </div>
 
   <div id="controls">
     <p id="status">Player 1's turn</p>
+    <button onclick="start()">Start</button>
     <button onclick="rollDice()">Roll Dice</button>
   </div>
 
@@ -65,17 +65,20 @@
     let a=1,b=1;
     // let choice=[];
     function rollDice(){
-      let curr=Math.floor(Math.random()*6);
+      let curr=Math.floor(Math.random()*6)+1;
       if(turn==='A'){
         a+=curr;
         rollDice1();
-        if(curr===6){
+        if(curr === 6){
           rollDice();
         }
         turn='B';
       }else if(turn==='B'){
         b+=curr;
-
+        rollDice1();
+        if(curr===6){
+          rollDice();
+        }
         turn='A';
       }
     }
@@ -85,20 +88,28 @@
       newele1.className="player p1";
       a1.append(newele1);
       let newele3=document.createElement("div");
-      new
+      newele3.className="player p2";
+      a1.append(newele3);
     }
     function rollDice1(){
       if(turn==='A'){
+      let dele1=document.getElementsByClassName("p1");
+      dele1[0].remove();
       let a1=document.getElementById(String(a));
       let newele=document.createElement("div");
       newele.className="player p1";
       a1.append(newele);
+      }else if(turn==='B'){
+        let dele1=document.getElementsByClassName("p2");
+        dele1[0].remove();
+        let a1=document.getElementById(String(b));
+        let newele=document.createElement("div");
+        newele.className="player p2";
+        a1.append(newele);
       }
     }
-    function movement(){
 
 
-    }
     // function turns(){
     //     if(turn==='A'){
 
