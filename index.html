@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Snakes and Ladders (Manual Cells with Errors)</title>
+  <title>Snakes and Ladders</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -27,6 +27,7 @@
       font-size: 12px;
       position: relative;
       z-index: 1;
+      font-weight: bold;
     }
     .player {
       width: 20px;
@@ -70,7 +71,7 @@
         );
       background-position: center, center;
       background-size: 100% 100%, 100% 100%;
-      opacity: 1;
+      opacity: 0.9;
       mix-blend-mode: multiply;
       filter: saturate(0.95) contrast(1.05);
       z-index: 0;
@@ -80,7 +81,8 @@
 <body>
   <h1>Snakes and Ladders</h1>
   <div id="board">
-    <div class="cell" id="89">89</div><div class="cell" id="88">88</div><div class="cell" id="87">87</div><div class="cell" id="86">86</div><div class="cell" id="85">85</div><div class="cell" id="84">84</div><div class="cell" id="83">83</div><div class="cell" id="82">82</div><div class="cell" id="81">81</div><div class="cell" id="80">80</div>
+    <div class="cell" id="91">91</div><div class="cell" id="92">92</div><div class="cell" id="93">93</div><div class="cell" id="94">94</div><div class="cell" id="95">95</div><div class="cell" id="96">96</div><div class="cell" id="97">97</div><div class="cell" id="98">98</div><div class="cell" id="99">99</div><div class="cell" id="100">100</div>
+    <div class="cell" id="90">90</div><div class="cell" id="89">89</div><div class="cell" id="88">88</div><div class="cell" id="87">87</div><div class="cell" id="86">86</div><div class="cell" id="85">85</div><div class="cell" id="84">84</div><div class="cell" id="83">83</div><div class="cell" id="82">82</div><div class="cell" id="81">81</div>
     <div class="cell" id="71">71</div><div class="cell" id="72">72</div><div class="cell" id="73">73</div><div class="cell" id="74">74</div><div class="cell" id="75">75</div><div class="cell" id="76">76</div><div class="cell" id="77">77</div><div class="cell" id="78">78</div><div class="cell" id="79">79</div><div class="cell" id="80">80</div>
     <div class="cell" id="70">70</div><div class="cell" id="69">69</div><div class="cell" id="68">68</div><div class="cell" id="67">67</div><div class="cell" id="66">66</div><div class="cell" id="65">65</div><div class="cell" id="64">64</div><div class="cell" id="63">63</div><div class="cell" id="62">62</div><div class="cell" id="61">61</div>
     <div class="cell" id="51">51</div><div class="cell" id="52">52</div><div class="cell" id="53">53</div><div class="cell" id="54">54</div><div class="cell" id="55">55</div><div class="cell" id="56">56</div><div class="cell" id="57">57</div><div class="cell" id="58">58</div><div class="cell" id="59">59</div><div class="cell" id="60">60</div>   
@@ -90,9 +92,15 @@
     <div class="cell" id="11">11</div><div class="cell" id="12">12</div><div class="cell" id="13">13</div><div class="cell" id="14">14</div><div class="cell" id="15">15</div><div class="cell" id="16">16</div><div class="cell" id="17">17</div><div class="cell" id="18">18</div><div class="cell" id="19">19</div><div class="cell" id="20">20</div>
     <div class="cell" id="10">10</div><div class="cell" id="9">9</div><div class="cell" id="8">8</div><div class="cell" id="7">7</div><div class="cell" id="6">6</div><div class="cell" id="5">5</div><div class="cell" id="4">4</div><div class="cell" id="3">3</div><div class="cell" id="2">2</div><div class="cell" id="1">1</div>
 
-    <div class="ladder" style="left: 170px; top: 80px; height: 300px;width: 40px; transform: rotate(-18deg);"></div>
-    <div class="ladder" style="left: 320px; top: 120px; height: 200px; transform: rotate(15deg);"></div>
+
+    <div class="ladder" style="left: 157px; top: 65px; height: 270px;width: 35px; transform: rotate(-22deg);"></div>
+    <div class="ladder" style="left: 80px; top: 285px; height: 95px;width: 35px; transform: rotate(27deg);"></div>
+    <div class="ladder" style="left: 285px; top: 110px; height: 115px;width: 35px; transform: rotate(27deg);"></div>
+    <div class="ladder" style="left: 360px; top: 352px; height: 95px;width: 35px; transform: rotate(-60deg);"></div>
+    <div class="ladder" style="left: 60px; top: 60px; height: 135px;width: 35px; transform: rotate(-43deg);"></div>
+    <div class="ladder" style="left: 400px; top: 204px; height: 145px;width: 35px; transform: rotate( 43deg);"></div>
   </div>
+
   <div id="controls">
     <p id="status">Player 1's turn</p>
     <button onclick="start()">Start</button>
@@ -101,6 +109,8 @@
   <script>
     let turn='A';
     let a=1,b=1;
+    let lad=[19,29,35,38,56,68];
+    let lad1=[24,48,60,77,88,90];
     function displai(x){
       let roll=document.getElementById("roll");
       let url = x + ".png";
@@ -109,30 +119,34 @@
       roll.style.backgroundPosition = "center";
       roll.style.borderRadius="5px";
     }
-    // function checksnakeorladder(){
-    //   checkladder();
-    //   checksnake();
-    // }
-    // function checkladders(){
-
-    // }
+  
+    function checksnakeorladder(){
+      checkladder();
+      // checksnake();
+    }
+    function checkladder(){
+      if(lad.includes(a)){
+        let x=lad.indexOf(a);
+        a=lad1[x];
+      }
+    }
     // function checksnakes(){
     // }
-    
+
     function rollDice(){
       let curr=Math.floor(Math.random()*6)+1;
        displai(curr);
       if(turn==='A'){
         a+=curr;
-        // checksnakeorladder();
+        checksnakeorladder();
         rollDice1();
         if(curr === 6){
-          rollDice();
+          rollDice();//recheck
         }
         turn='B';
       }else if(turn==='B'){
         b+=curr;
-        // checksnakeorladder();
+        checksnakeorladder();
         rollDice1();
         if(curr===6){
           rollDice();
@@ -140,6 +154,7 @@
         turn='A';
       }
     }
+
     function start(){
       let a1=document.getElementById("1");
       let newele1=document.createElement("div");
