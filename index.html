@@ -42,7 +42,7 @@
     }
     button {
       padding: 10px 20px;
-      margin: 5px;
+      margin-left: 50px;
       font-size: 16px;
     }
     .roll{
@@ -74,7 +74,7 @@
       opacity: 0.9;
       mix-blend-mode: multiply;
       filter: saturate(0.95) contrast(1.05);
-      z-index: 0;
+      z-index: 1;
     }
     .snake {
       position: absolute;
@@ -114,21 +114,24 @@
     <div class="ladder" style="left: 60px; top: 60px; height: 135px;width: 35px; transform: rotate(-43deg);"></div>
     <div class="ladder" style="left: 400px; top: 204px; height: 145px;width: 35px; transform: rotate( 43deg);"></div>
     <div class="snake"  style="left: 400px; top: 54px; height: 145px;width: 35px; transform: rotate(43deg);"></div>
-    <div class="snake flip" style="left: 200px; top: 54px; height: 345px; width: 35px;rotate: calc(-35deg);"></div>
+    <div class="snake" style="left: 130px;top: -13px; height: 245px;width: 35px; transform: rotate(47deg);"></div>
+    <div class="snake" style="left: 50px;top: 355px; height: 130px;width: 35px; transform: rotate(47deg);"></div>
+    <div class="snake flip" style="left: 180px; top: 200px; height: 200px; width: 35px;rotate: calc(-35deg);"></div>
+    <div class="snake flip" style="left: 353px;top: 200px;height: 100px;width: 35px;rotate: calc(-35deg)"></div>
   </div>
-  <a href></a>
   <div id="controls">
-    <p id="status">Player 1's turn</p>
+    <p id="turn">Player 1's turn</p>
     <button onclick="start()">Start</button>
     <button onclick="rollDice()" style="width: 50px;height: 50px;" id="roll"></button>
   </div>
+  
   <script>
     let turn='A';
     let a=1,b=1;
     let lad=[19,29,35,38,56,68];
-    let lad1=[24,48,60,77,88,90];
-    let snak=[];
-    let sna1=[];
+    let lad1=[24,48,60,77,88,90]; 
+    let snak=[28,53,57,81,95];
+    let sna1=[10,25,42,63,69];
     function displai(x){
       let roll=document.getElementById("roll");
       let url = x + ".png";
@@ -137,7 +140,7 @@
       roll.style.backgroundPosition = "center";
       roll.style.borderRadius="5px";
     }
-  
+    let turns=document.getElementById("turn");
     function checksnakeorladder(){
       checkladder();
       checksnake();
@@ -167,18 +170,34 @@
        displai(curr);
       if(turn==='A'){
         a+=curr;
+        turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
+        if(a>100){
+          turn='B'
+          return;
+        }
         rollDice1();
         if(curr === 6){
           return;
         }
+        if(a===100){
+          turns.textContent='Player ' +turn+' has won';
+        }
         turn='B';
       }else if(turn==='B'){
         b+=curr;
+        turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
+        if(b>100){
+          turn='A';
+          return;
+        }
         rollDice1();
         if(curr===6){
           return;
+        }
+        if(b===100){
+          turns.textContent='Player '+turn+' has won'
         }
         turn='A';
       }
@@ -210,62 +229,6 @@
         a1.append(newele);
       }
     }
-
-    // function turns(){
-    //     if(turn==='A'){
-
-    //       turn='B';
-    //     }else{
-
-    //       turn='A'
-    //     }
-    // }
-
-    // const cells = document.querySelectorAll(".cell");
-    // const snakes = { 99: 7, 92: 35, 73: 12, 50: 5, 15: 2 };
-    // const ladders = { 3: 22, 8: 26, 20: 41, 36: 55, 63: 82, 95: 120 }; 
-
-    // let positions = [1, 1];
-    // let currentPlayer = 0;
-
-    // function rollDice() {
-    //   const roll = Math.floor(Math.random() * 6) + 1;
-    //   status.textContent = `Player ${currentPlayer + 1} rolled a ${roll}`;
-    //   movePlayer(currentPlayer, roll);
-    // }
-
-
-    // function movePlayer(player, roll) {
-    //   let pos = positions[player] + roll;
-    //   if (pos > 100) pos = positions[player]; 
-    //   if (snakes[pos]) {
-    //     status.textContent += ` — Snake down to ${snakes[pos]}`;
-    //     pos = snakes[pos];
-    //   } else if (ladders[pos]) {
-    //     status.textContent += ` — Ladder up to ${ladders[pos]}`;
-    //     pos = ladders[pos];
-    //   }
-    //   positions[player] = pos;
-    //   renderPlayers();
-
-    //   if (pos === 100) {
-    //     status.textContent = `Player ${player + 1} wins!`;
-    //     return;
-    //   }
-    //   currentPlayer = 1 - currentPlayer;
-    //   status.textContent += ` — Player ${currentPlayer + 1}'s turn`;
-    // }
-
-    // function renderPlayers() {
-    //   document.querySelectorAll(".player").forEach(p => p.remove());
-    //   positions.forEach((pos, i) => {
-    //     const token = document.createElement("div");
-    //     token.className = `player p${i+1}`;
-    //     cells[100 - pos].appendChild(token); 
-    //   });
-    // }
-
-    // renderPlayers();
   </script>
 </body>
 </html>
