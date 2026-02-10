@@ -76,6 +76,20 @@
       filter: saturate(0.95) contrast(1.05);
       z-index: 0;
     }
+    .snake {
+      position: absolute;
+      width: 35px;
+      height: 145px;
+      /* background-color: transparent; */
+      background-image: url("sna.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      z-index: 0;
+    }
+    .snake.flip {
+      transform: scaleX(-1);
+    }
   </style>
 </head>
 <body>
@@ -99,8 +113,10 @@
     <div class="ladder" style="left: 360px; top: 352px; height: 95px;width: 35px; transform: rotate(-60deg);"></div>
     <div class="ladder" style="left: 60px; top: 60px; height: 135px;width: 35px; transform: rotate(-43deg);"></div>
     <div class="ladder" style="left: 400px; top: 204px; height: 145px;width: 35px; transform: rotate( 43deg);"></div>
+    <div class="snake"  style="left: 400px; top: 54px; height: 145px;width: 35px; transform: rotate(43deg);"></div>
+    <div class="snake flip" style="left: 200px; top: 54px; height: 345px; width: 35px;rotate: calc(-35deg);"></div>
   </div>
-
+  <a href></a>
   <div id="controls">
     <p id="status">Player 1's turn</p>
     <button onclick="start()">Start</button>
@@ -111,6 +127,8 @@
     let a=1,b=1;
     let lad=[19,29,35,38,56,68];
     let lad1=[24,48,60,77,88,90];
+    let snak=[];
+    let sna1=[];
     function displai(x){
       let roll=document.getElementById("roll");
       let url = x + ".png";
@@ -122,16 +140,27 @@
   
     function checksnakeorladder(){
       checkladder();
-      // checksnake();
+      checksnake();
     }
     function checkladder(){
       if(lad.includes(a)){
         let x=lad.indexOf(a);
         a=lad1[x];
+      }else if(lad.includes(b)){
+        let x=lad.indexOf(b);
+        b=lad1[x];
       }
     }
-    // function checksnakes(){
-    // }
+
+    function checksnake(){
+      if(snak.includes(a)){
+        let y=snak.indexOf(a);
+        a=sna1[y];
+      }else if(snak.includes(b)){
+        let y=snak.indexOf(b);
+        b=sna1[y];
+      }
+    }
 
     function rollDice(){
       let curr=Math.floor(Math.random()*6)+1;
@@ -141,7 +170,7 @@
         checksnakeorladder();
         rollDice1();
         if(curr === 6){
-          rollDice();//recheck
+          return;
         }
         turn='B';
       }else if(turn==='B'){
@@ -149,7 +178,7 @@
         checksnakeorladder();
         rollDice1();
         if(curr===6){
-          rollDice();
+          return;
         }
         turn='A';
       }
