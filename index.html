@@ -121,15 +121,15 @@
   </div>
   <div id="controls">
     <p id="turn">Player 1's turn</p>
-    <button onclick="start()">Start</button>
-    <button onclick="rollDice()" style="width: 50px;height: 50px;" id="roll"></button>
+    <button onclick="start()" id="start">Start</button>
+    <button onclick="rollDice()" style="width: 50px;height: 50px;visibility: hidden;" id="roll"></button>
   </div>
   
   <script>
     let turn='A';
     let a=1,b=1;
     let lad=[19,29,35,38,56,68];
-    let lad1=[24,48,60,77,88,90]; 
+    let lad1=[24,48,88,60,77,90]; 
     let snak=[28,53,57,81,95];
     let sna1=[10,25,42,63,69];
     function displai(x){
@@ -146,20 +146,20 @@
       checksnake();
     }
     function checkladder(){
-      if(lad.includes(a)){
+      if(turn==='A'&&lad.includes(a)){
         let x=lad.indexOf(a);
         a=lad1[x];
-      }else if(lad.includes(b)){
+      }else if(turn==='B'&&lad.includes(b)){
         let x=lad.indexOf(b);
         b=lad1[x];
       }
     }
 
     function checksnake(){
-      if(snak.includes(a)){
+      if(turn==='A'&&snak.includes(a)){
         let y=snak.indexOf(a);
         a=sna1[y];
-      }else if(snak.includes(b)){
+      }else if(turn==='B'&&snak.includes(b)){
         let y=snak.indexOf(b);
         b=sna1[y];
       }
@@ -173,7 +173,9 @@
         turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
         if(a>100){
-          turn='B'
+          if(curr!==6){
+            turn='B'
+          }
           return;
         }
         rollDice1();
@@ -182,6 +184,7 @@
         }
         if(a===100){
           turns.textContent='Player ' +turn+' has won';
+          roll.style.visibility="hidden";
         }
         turn='B';
       }else if(turn==='B'){
@@ -189,7 +192,9 @@
         turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
         if(b>100){
-          turn='A';
+          if(curr!==6){
+            turn='A';
+          }
           return;
         }
         rollDice1();
@@ -197,7 +202,8 @@
           return;
         }
         if(b===100){
-          turns.textContent='Player '+turn+' has won'
+          turns.textContent='Player '+turn+' has won';
+          roll.style.visibility="hidden";
         }
         turn='A';
       }
@@ -211,6 +217,10 @@
       let newele3=document.createElement("div");
       newele3.className="player p2";
       a1.append(newele3);
+      let roll=document.getElementById("roll");
+      roll.style.visibility="visible";
+      let start=document.getElementById("start");
+      start.style.visibility="hidden";
     }
     function rollDice1(){
       if(turn==='A'){
