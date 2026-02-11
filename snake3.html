@@ -178,6 +178,7 @@
        displai(curr);
       if(turn==='A'){
         a+=curr;
+        turns.style.color="blue"
         turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
         if(a>100){
@@ -197,6 +198,7 @@
         turn='B';
       }else if(turn==='B'){
         b+=curr;
+        turns.style.color="red"
         turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
         if(b>100){
@@ -216,6 +218,7 @@
         turn='C';
       }else if(turn ==='C'){
         c+=curr;
+        turns.style.color="green";
         turns.textContent='Player '+turn+' turn';
         checksnakeorladder();
         if(c>100){
