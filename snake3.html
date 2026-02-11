@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Snakes and Ladders 2P</title>
+  <title>Snakes and Ladders 3P</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -126,7 +126,7 @@
   
   <script>
     let turn='A';
-    let a=1,b=1;
+    let a=1,b=1,c=1;
     let lad=[19,29,35,38,56,68];
     let lad1=[24,48,88,60,77,90]; 
     let snak=[28,53,57,81,95];
@@ -151,6 +151,9 @@
       }else if(turn==='B'&&lad.includes(b)){
         let x=lad.indexOf(b);
         b=lad1[x];
+      }else if(turn==='C'&&lad.includes(c)){
+        let x=lad.indexOf(c);
+        c=lad1[x];
       }
     }
 
@@ -161,7 +164,9 @@
       }else if(turn==='B'&&snak.includes(b)){
         let y=snak.indexOf(b);
         b=sna1[y];
-      }
+      }else if(turn==='C'&&snak.includes(c)){
+        let y=snak.indexOf(c);
+        c=sna1[y];
     }
 
     function rollDice(){
