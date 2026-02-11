@@ -37,6 +37,9 @@
     }
     .p1 { background: red; bottom: 2px; left: 2px; }
     .p2 { background: blue; top: 2px; right: 2px; }
+    .p3 { background: green; top: 2px; left: 2px; }
+
+    
     #controls {
       margin-top: 20px;
     }
@@ -167,6 +170,7 @@
       }else if(turn==='C'&&snak.includes(c)){
         let y=snak.indexOf(c);
         c=sna1[y];
+      }
     }
 
     function rollDice(){
@@ -197,6 +201,25 @@
         checksnakeorladder();
         if(b>100){
           if(curr!==6){
+            turn='C';
+          }
+          return;
+        }
+        rollDice1();
+        if(curr===6){
+          return;
+        }
+        if(b===100){
+          turns.textContent='Player '+turn+' has won';
+          roll.style.visibility="hidden";
+        }
+        turn='C';
+      }else if(turn ==='C'){
+        c+=curr;
+        turns.textContent='Player '+turn+' turn';
+        checksnakeorladder();
+        if(c>100){
+          if(curr!==6){
             turn='A';
           }
           return;
@@ -212,7 +235,6 @@
         turn='A';
       }
     }
-
     function start(){
       let a1=document.getElementById("1");
       let newele1=document.createElement("div");
@@ -221,6 +243,9 @@
       let newele3=document.createElement("div");
       newele3.className="player p2";
       a1.append(newele3);
+      let newele4=document.createElement("div");
+      newele4.className="player p3";
+      a1.append(newele4);
       let roll=document.getElementById("roll");
       roll.style.visibility="visible";
       let start=document.getElementById("start");
@@ -240,6 +265,13 @@
         let a1=document.getElementById(String(b));
         let newele=document.createElement("div");
         newele.className="player p2";
+        a1.append(newele);
+      }else if(turn==='C'){
+        let dele1=document.getElementsByClassName("p3");
+        dele1[0].remove();
+        let a1=document.getElementById(String(c));
+        let newele=document.createElement("div");
+        newele.className="player p3";
         a1.append(newele);
       }
     }
